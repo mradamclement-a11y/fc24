@@ -18,7 +18,7 @@
         <span class="fc-badge">FC</span>
         <span class="title">24 Position Predictor</span>
       </div>
-      <p class="tag">Raw inputs (1–99). Hardened against missing elements / caching mismatches.</p>
+      <p class="tag">Raw inputs (1–99): Pace, Shooting, Passing, Defending. Hosted-build ready.</p>
     </header>
 
     <main class="grid">
@@ -37,9 +37,10 @@
           <input type="range" id="passing" min="1" max="99" value="70" step="1">
         </div>
         <div class="slider">
-          <label for="passing">Defending <span id="defVal">70</span></label>
-          <input type="range" id="passing" min="1" max="99" value="70" step="1">
+          <label for="defending">Defending <span id="defVal">70</span></label>
+          <input type="range" id="defending" min="1" max="99" value="70" step="1">
         </div>
+
         <button id="predictBtn" class="cta" disabled>Predict</button>
         <div id="modelStatus" class="status">Loading model…</div>
       </section>

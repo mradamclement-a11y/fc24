@@ -1,6 +1,7 @@
-/* Raw inputs version with guards to prevent null addEventListener crashes */
+/* FC 24 Position Predictor — 4 features (pace, shooting, passing, defending), raw inputs, with guards */
 let model = null;
 
+// Adjust to your training class order:
 const POSITION_LABELS = [
   "GK","RB","RWB","CB","LB","LWB","CDM","CM",
   "CAM","RM","LM","RW","LW","CF","ST","SW"
@@ -26,7 +27,7 @@ async function loadModel(){
   const status = el("modelStatus");
   if (status) status.textContent = "Loading model from ./my-model.json…";
   model = await tf.loadLayersModel("./my-model.json");
-  tf.tidy(()=> model.predict(tf.tensor2d([[70,70,70]])));
+  tf.tidy(()=> model.predict(tf.tensor2d([[70,70,70,70]]))); // warm up with 4 raw values
   if (status) status.textContent = "Model loaded ✓";
   const predictBtn = el("predictBtn");
   if (predictBtn) predictBtn.disabled = false;
@@ -36,7 +37,8 @@ function readInputs(){
   const pace = Number(must("pace").value);
   const shooting = Number(must("shooting").value);
   const passing = Number(must("passing").value);
-  return [pace, shooting, passing];
+  const defending = Number(must("defending").value);
+  return [pace, shooting, passing, defending];
 }
 
 function softmax(arr){
@@ -75,7 +77,7 @@ function updateUI(best, top3, probs){
 
 async function predict(){
   if(!model) return;
-  const x = readInputs();
+  const x = readInputs(); // RAW values
   const pred = tf.tidy(()=> model.predict(tf.tensor2d([x])));
   let raw = Array.from(await pred.data());
   pred.dispose();
@@ -93,6 +95,7 @@ function wireUI(){
     const pace = must("pace");
     const shooting = must("shooting");
     const passing = must("passing");
+    const defending = must("defending");
     const predictBtn = must("predictBtn");
 
     const sync = (input, spanId) => {
@@ -102,6 +105,7 @@ function wireUI(){
     sync(pace, "paceVal");
     sync(shooting, "shootVal");
     sync(passing, "passVal");
+    sync(defending, "defVal");
 
     predictBtn.addEventListener("click", predict);
   }catch(err){
