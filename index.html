@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>FC 24 Position Predictor</title>
+  <title>FC 24 Position Predictor — File-Safe</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
@@ -18,7 +18,7 @@
         <span class="fc-badge">FC</span>
         <span class="title">24 Position Predictor</span>
       </div>
-      <p class="tag">Load the sliders, hit <strong>Predict</strong>, and see the most likely role.</p>
+      <p class="tag">If your browser blocks local loading, use the <strong>Load Model (Files)</strong> button below.</p>
     </header>
 
     <main class="grid">
@@ -37,8 +37,18 @@
           <input type="range" id="passing" min="1" max="99" value="70" step="1">
         </div>
 
-        <button id="predictBtn" class="cta">Predict</button>
+        <div class="btns">
+          <button id="predictBtn" class="cta" disabled>Predict</button>
+          <button id="loadLocalBtn" class="cta alt">Load Model (Files)</button>
+        </div>
         <div id="modelStatus" class="status">Loading model…</div>
+
+        <div id="fileLoadPanel" class="file-panel" hidden>
+          <p class="hint">Choose your <code>my-model.json</code> and <code>my-model.weights.bin</code> files (in any order):</p>
+          <input id="filePicker" type="file" multiple accept=".json,.bin" />
+          <button id="useFilesBtn" class="cta small">Use Selected Files</button>
+          <div id="fileStatus" class="status"></div>
+        </div>
       </section>
 
       <section class="card result">
@@ -61,7 +71,7 @@
     </main>
 
     <footer class="foot">
-      <p>Model: <code>my-model.json</code> (3 inputs → 16 positions). Update labels in <code>app.js</code> if yours differ.</p>
+      <p>Tip: To avoid the local file restriction, serve this folder via a tiny local server (e.g., <code>python -m http.server</code>).</p>
     </footer>
   </div>
 </body>
