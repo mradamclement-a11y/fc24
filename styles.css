@@ -31,7 +31,4 @@ input[type="range"]{width:100%}
 .marker{position:absolute;width:12px;height:12px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px rgba(214,179,90,0.25)}
 .hint{color:#9aa6b2;font-size:0.85rem;margin-top:6px}
 .foot{margin-top:14px;color:#98a2ad;font-size:0.85rem}
-.row{display:flex;gap:8px;align-items:center;margin-top:6px}
-.row select,.row input{padding:6px 8px;border-radius:8px;border:1px solid #2a2f36;background:#0f1218;color:#eaeff5}
-.zparams input{width:84px}
 @media (max-width:900px){ .grid{grid-template-columns:1fr} .pitch{grid-column:span 1} }
