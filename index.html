@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FC 24 Position Predictor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.20.0/dist/tf.min.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <div class="brand">
+        <span class="fc-badge">FC</span>
+        <span class="title">24 Position Predictor</span>
+      </div>
+      <p class="tag">Load the sliders, hit <strong>Predict</strong>, and see the most likely role.</p>
+    </header>
+
+    <main class="grid">
+      <section class="card controls">
+        <h2>Player Attributes</h2>
+        <div class="slider">
+          <label for="pace">Pace <span id="paceVal">70</span></label>
+          <input type="range" id="pace" min="1" max="99" value="70" step="1">
+        </div>
+        <div class="slider">
+          <label for="shooting">Shooting <span id="shootVal">70</span></label>
+          <input type="range" id="shooting" min="1" max="99" value="70" step="1">
+        </div>
+        <div class="slider">
+          <label for="passing">Passing <span id="passVal">70</span></label>
+          <input type="range" id="passing" min="1" max="99" value="70" step="1">
+        </div>
+
+        <button id="predictBtn" class="cta">Predict</button>
+        <div id="modelStatus" class="status">Loading model…</div>
+      </section>
+
+      <section class="card result">
+        <h2>Prediction</h2>
+        <div id="badge" class="pos-badge">--</div>
+        <div id="top3" class="top3"></div>
+      </section>
+
+      <section class="card pitch">
+        <h2>Pitch Map</h2>
+        <div class="field">
+          <div class="half left"></div>
+          <div class="half right"></div>
+          <div class="center-line"></div>
+          <div class="circle"></div>
+          <div id="marker" class="marker" title="Predicted area"></div>
+        </div>
+        <p class="hint">Marker lands roughly where the predicted role plays.</p>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <p>Model: <code>my-model.json</code> (3 inputs → 16 positions). Update labels in <code>app.js</code> if yours differ.</p>
+    </footer>
+  </div>
+</body>
+</html>
